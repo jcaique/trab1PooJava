@@ -11,7 +11,22 @@ public class ItemPedido {
         this.sequencia = sequencia;
         this.qtdeVendida = qtdeVendida;
         this.produto = produto;
-        produto.subQtdeEstoque(qtdeVendida);
+        if(produto.getQtdeEstoque()>= qtdeVendida){
+            
+            produto.subQtdeEstoque(qtdeVendida);
+            
+        }
+        else{
+            
+            System.out.println("");
+            System.out.println("A quantidade que esta a ser vendida é acima da disponivel");
+            System.out.println("APENAS "+ produto.getQtdeEstoque() +" SERÃO INCLUSAS NO PEDIDO");
+            System.out.println("");
+            
+            produto.subQtdeEstoque(produto.getQtdeEstoque());
+            
+        }
+        
     }
 
     public void setSequencia(int sequencia) {

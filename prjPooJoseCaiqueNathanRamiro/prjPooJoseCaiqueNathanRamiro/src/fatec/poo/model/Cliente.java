@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class Cliente extends Pessoa {
 
     private double limiteCred;
-    private double limiteDisp = limiteCred;
+    private double limiteDisp;
     private ArrayList<Pedido> pedidos;//ligacao 1..*
 
-    public Cliente(String nome, String cpf, double limiteCred) {
-        super(nome, cpf);
+    public Cliente(String cpf, String nome, double limiteCred) {
+        super(cpf, nome);
         this.limiteCred = limiteCred;
+        this.limiteDisp = this.limiteCred;
         this.pedidos = new ArrayList<Pedido>();
     }
 
