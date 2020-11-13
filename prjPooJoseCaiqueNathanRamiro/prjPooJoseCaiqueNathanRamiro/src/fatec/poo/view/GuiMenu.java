@@ -1,0 +1,119 @@
+package fatec.poo.view;
+
+public class GuiMenu extends javax.swing.JFrame {
+
+    public GuiMenu() {
+        initComponents();
+    }
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        barraMenu = new javax.swing.JMenuBar();
+        menuCadastros = new javax.swing.JMenu();
+        itemMenuClientes = new javax.swing.JMenuItem();
+        itemMenuVendedores = new javax.swing.JMenuItem();
+        itemMenuProdutos = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        itemMenuSair = new javax.swing.JMenuItem();
+        menuPedido = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Controle de Vendas");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLocation(new java.awt.Point(510, 255));
+        setName("GuiMenu"); // NOI18N
+        setResizable(false);
+
+        barraMenu.setBorder(null);
+        barraMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        menuCadastros.setText("Cadastros");
+        menuCadastros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        itemMenuClientes.setText("Clientes");
+        itemMenuClientes.setAlignmentX(-10.0F);
+        itemMenuClientes.setBorder(null);
+        itemMenuClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        itemMenuClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        itemMenuClientes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        itemMenuClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuClientesActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemMenuClientes);
+
+        itemMenuVendedores.setText("Vendedores");
+        itemMenuVendedores.setAlignmentX(-10.0F);
+        itemMenuVendedores.setBorder(null);
+        itemMenuVendedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        itemMenuVendedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        menuCadastros.add(itemMenuVendedores);
+
+        itemMenuProdutos.setText("Produtos");
+        itemMenuProdutos.setAlignmentX(-10.0F);
+        itemMenuProdutos.setBorder(null);
+        itemMenuProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        itemMenuProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        menuCadastros.add(itemMenuProdutos);
+        menuCadastros.add(jSeparator2);
+
+        itemMenuSair.setText("Sair");
+        itemMenuSair.setAlignmentX(-10.0F);
+        itemMenuSair.setBorder(null);
+        itemMenuSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        itemMenuSair.setMargin(new java.awt.Insets(0, 30, 0, 0));
+        itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuSairActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(itemMenuSair);
+
+        barraMenu.add(menuCadastros);
+
+        menuPedido.setText("Pedido");
+        barraMenu.add(menuPedido);
+
+        setJMenuBar(barraMenu);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 294, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 192, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void itemMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSairActionPerformed
+      this.dispose();
+    }//GEN-LAST:event_itemMenuSairActionPerformed
+
+    private void itemMenuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuClientesActionPerformed
+        new GuiCliente().setVisible(true);
+    }//GEN-LAST:event_itemMenuClientesActionPerformed
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GuiMenu().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenuItem itemMenuClientes;
+    private javax.swing.JMenuItem itemMenuProdutos;
+    private javax.swing.JMenuItem itemMenuSair;
+    private javax.swing.JMenuItem itemMenuVendedores;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenu menuPedido;
+    // End of variables declaration//GEN-END:variables
+}
