@@ -48,6 +48,11 @@ public class GuiMenu extends javax.swing.JFrame {
         itemMenuVendedores.setBorder(null);
         itemMenuVendedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         itemMenuVendedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        itemMenuVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuVendedoresActionPerformed(evt);
+            }
+        });
         menuCadastros.add(itemMenuVendedores);
 
         itemMenuProdutos.setText("Produtos");
@@ -55,6 +60,11 @@ public class GuiMenu extends javax.swing.JFrame {
         itemMenuProdutos.setBorder(null);
         itemMenuProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         itemMenuProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        itemMenuProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuProdutosActionPerformed(evt);
+            }
+        });
         menuCadastros.add(itemMenuProdutos);
         menuCadastros.add(jSeparator2);
 
@@ -98,6 +108,14 @@ public class GuiMenu extends javax.swing.JFrame {
     private void itemMenuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuClientesActionPerformed
         new GuiCliente().setVisible(true);
     }//GEN-LAST:event_itemMenuClientesActionPerformed
+
+    private void itemMenuVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendedoresActionPerformed
+        new GuiVendedor().setVisible(true);
+    }//GEN-LAST:event_itemMenuVendedoresActionPerformed
+
+    private void itemMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosActionPerformed
+        new GUIProduto().setVisible(true);
+    }//GEN-LAST:event_itemMenuProdutosActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -112,7 +130,7 @@ public class GuiMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemMenuProdutos;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JMenuItem itemMenuVendedores;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenu menuPedido;
     // End of variables declaration//GEN-END:variables
