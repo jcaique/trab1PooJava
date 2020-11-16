@@ -18,14 +18,15 @@ public class GuiCliente extends javax.swing.JFrame {
         lblCep = new javax.swing.JLabel();
         lblUf = new javax.swing.JLabel();
         txtFormatCpf = new javax.swing.JFormattedTextField();
+        txtFormatLimiteCred = new javax.swing.JFormattedTextField();
+        txtFormatCep = new javax.swing.JFormattedTextField();
+        txtFormatLimiteDisp = new javax.swing.JFormattedTextField();
         txtEndereço = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
-        txtFormatTelefone = new javax.swing.JFormattedTextField();
+        txtTelefoneDDD = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
         cbxUf = new javax.swing.JComboBox<>();
-        txtFormatCep = new javax.swing.JFormattedTextField();
-        txtFormatLimiteCred = new javax.swing.JFormattedTextField();
-        txtFormatLimiteDisp = new javax.swing.JFormattedTextField();
         btnConsultar = new javax.swing.JButton();
         btnIncluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -72,21 +73,9 @@ public class GuiCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtEndereço.setEnabled(false);
-
-        txtNome.setEnabled(false);
-
-        txtCidade.setEnabled(false);
-
-        try {
-            txtFormatTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFormatTelefone.setEnabled(false);
-
-        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        cbxUf.setEnabled(false);
+        txtFormatLimiteCred.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        txtFormatLimiteCred.setToolTipText("");
+        txtFormatLimiteCred.setEnabled(false);
 
         try {
             txtFormatCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -95,13 +84,23 @@ public class GuiCliente extends javax.swing.JFrame {
         }
         txtFormatCep.setEnabled(false);
 
-        txtFormatLimiteCred.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-        txtFormatLimiteCred.setToolTipText("");
-        txtFormatLimiteCred.setEnabled(false);
-
         txtFormatLimiteDisp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
         txtFormatLimiteDisp.setToolTipText("");
         txtFormatLimiteDisp.setEnabled(false);
+
+        txtEndereço.setEnabled(false);
+
+        txtNome.setEnabled(false);
+
+        txtCidade.setEnabled(false);
+
+        txtTelefoneDDD.setEnabled(false);
+        txtTelefoneDDD.setName(""); // NOI18N
+
+        txtTelefone.setEnabled(false);
+
+        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbxUf.setEnabled(false);
 
         btnConsultar.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -159,10 +158,10 @@ public class GuiCliente extends javax.swing.JFrame {
                         .addComponent(lblLimiteCred)
                         .addGap(18, 18, 18)
                         .addComponent(txtFormatLimiteCred, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblLimiteDisp)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFormatLimiteDisp))
+                        .addComponent(txtFormatLimiteDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -175,7 +174,10 @@ public class GuiCliente extends javax.swing.JFrame {
                             .addComponent(txtEndereço)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFormatTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtTelefoneDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtFormatCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -196,9 +198,9 @@ public class GuiCliente extends javax.swing.JFrame {
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCidade, lblCpf, lblEndereco, lblNome, lblTelefone});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFormatCpf, txtFormatTelefone});
-
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFormatLimiteCred, txtFormatLimiteDisp});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,10 +226,12 @@ public class GuiCliente extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFormatTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblCep)
                         .addComponent(txtFormatCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTelefone))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTelefone)
+                        .addComponent(txtTelefoneDDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -249,7 +253,7 @@ public class GuiCliente extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblCep, lblCidade, lblCpf, lblEndereco, lblLimiteDisp, lblNome, lblTelefone, lblUf, txtCidade, txtEndereço, txtFormatCpf, txtFormatTelefone, txtNome});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblCep, lblCidade, lblCpf, lblEndereco, lblLimiteDisp, lblNome, lblTelefone, lblUf, txtCidade, txtEndereço, txtFormatCpf, txtNome});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxUf, txtFormatCep});
 
@@ -291,7 +295,8 @@ public static void main(String args[]) {
     private javax.swing.JFormattedTextField txtFormatCpf;
     private javax.swing.JFormattedTextField txtFormatLimiteCred;
     private javax.swing.JFormattedTextField txtFormatLimiteDisp;
-    private javax.swing.JFormattedTextField txtFormatTelefone;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JTextField txtTelefoneDDD;
     // End of variables declaration//GEN-END:variables
 }
