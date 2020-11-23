@@ -71,4 +71,41 @@ public class Pessoa {
     public String getTelefone() {
         return telefone;
     }
+    
+    public static boolean validarCpf(String cpf){
+  //Retirando os pontos e o traço
+        String cpfNoFormat = cpf.replace(".","");          
+        cpfNoFormat = cpfNoFormat.replace("-", "");
+        
+        String cpf2 = cpfNoFormat.substring(0, 9);//começa no 0 e vai até o nove sem o nove;
+        String cpf3 = cpfNoFormat.substring(0, 10); 
+        
+        int verifiers = Integer.parseInt(cpfNoFormat.substring(9));
+        int digitoVer1 = 0;
+        int digitoVer2 = 0;
+
+        for (int i = 0; i < cpf2.length(); i++) {
+            digitoVer1 += Integer.parseInt(String.valueOf(cpf2.charAt(i))) * (i + 1);
+        }
+        if(digitoVer1 % 11 == 10){
+            digitoVer1 = 0;
+        }else{
+            digitoVer1 = digitoVer1 % 11;
+        }
+
+        for (int i = 0; i < cpf3.length(); i++) {
+            digitoVer2 += Integer.parseInt(String.valueOf(cpf3.charAt(i))) * (12 - (i + 1));
+        }
+        digitoVer2 = digitoVer2 * 10;
+        
+        if(digitoVer2 % 11 == 10){
+            digitoVer2 = 0;
+        }else{
+            digitoVer2 = digitoVer2 % 11;
+        }
+
+        String verifiers2 = String.valueOf(digitoVer1) + String.valueOf(digitoVer2);
+
+        return Integer.parseInt(verifiers2) == verifiers;
+    }
 }

@@ -23,7 +23,7 @@ public class Vendedor extends Pessoa {
     }
 
     public double getTaxaComissao() {
-        return taxaComissao;
+        return taxaComissao * 100;
     }
 
     public void setTaxaComissao(double taxaComissao) {

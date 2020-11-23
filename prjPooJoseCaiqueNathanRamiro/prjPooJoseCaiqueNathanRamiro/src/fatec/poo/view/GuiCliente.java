@@ -1,5 +1,11 @@
 package fatec.poo.view;
 
+import fatec.poo.model.Pessoa;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+
+
 public class GuiCliente extends javax.swing.JFrame {
 
     public GuiCliente() {
@@ -106,6 +112,11 @@ public class GuiCliente extends javax.swing.JFrame {
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 153)));
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
@@ -265,6 +276,16 @@ public class GuiCliente extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
      this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+
+    if(Pessoa.validarCpf(txtFormatCpf.getText())){
+       JOptionPane.showMessageDialog(null, "!");
+    }else{
+        JOptionPane.showMessageDialog(null, "CPF Inválido!");
+    }
+    
+    }//GEN-LAST:event_btnConsultarActionPerformed
 public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -299,4 +320,6 @@ public static void main(String args[]) {
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTelefoneDDD;
     // End of variables declaration//GEN-END:variables
+    private ArrayList<Pessoa> cadCli;
+    private int indexCli;
 }
