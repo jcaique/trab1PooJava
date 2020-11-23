@@ -73,39 +73,55 @@ public class Pessoa {
     }
     
     public static boolean validarCpf(String cpf){
-  //Retirando os pontos e o traço
-        String cpfNoFormat = cpf.replace(".","");          
+        //Retirando os pontos e o traço
+        String cpfNoFormat = cpf.replace(".", "");
         cpfNoFormat = cpfNoFormat.replace("-", "");
-        
-        String cpf2 = cpfNoFormat.substring(0, 9);//começa no 0 e vai até o nove sem o nove;
-        String cpf3 = cpfNoFormat.substring(0, 10); 
-        
-        int verifiers = Integer.parseInt(cpfNoFormat.substring(9));
-        int digitoVer1 = 0;
-        int digitoVer2 = 0;
 
+        System.out.println(cpfNoFormat);
+
+        String cpf2 = cpfNoFormat.substring(0, 9);//separando os 9 primeiros digitos - vai da pos 0 até a pos 9 do array, desconsiderando a pos 9
+        String cpf3 = cpfNoFormat.substring(0, 10);//separando os 10 primeiros
+        String verifiers = cpfNoFormat.substring(9);
+
+        //VERIFICANDO SE TODOS OS NUMEROS SÃO IGUAIS
+        int cont = 0;
         for (int i = 0; i < cpf2.length(); i++) {
-            digitoVer1 += Integer.parseInt(String.valueOf(cpf2.charAt(i))) * (i + 1);
+            if (cpf2.charAt(i) == verifiers.charAt(0) || cpf2.charAt(i) == verifiers.charAt(1)) {
+                cont++;
+            }
         }
-        if(digitoVer1 % 11 == 10){
-            digitoVer1 = 0;
-        }else{
-            digitoVer1 = digitoVer1 % 11;
-        }
-
-        for (int i = 0; i < cpf3.length(); i++) {
-            digitoVer2 += Integer.parseInt(String.valueOf(cpf3.charAt(i))) * (12 - (i + 1));
-        }
-        digitoVer2 = digitoVer2 * 10;
         
-        if(digitoVer2 % 11 == 10){
-            digitoVer2 = 0;
-        }else{
-            digitoVer2 = digitoVer2 % 11;
+        //se todos os numeros forem iguais, retorne false senao calcule
+        if (cont == 9) {
+            return false;
+        } else {
+
+            int digitoVer1 = 0;
+            int digitoVer2 = 0;
+
+            for (int i = 0; i < cpf2.length(); i++) {
+                digitoVer1 += Integer.parseInt(String.valueOf(cpf2.charAt(i))) * (i + 1);
+                System.out.println(digitoVer1);
+            }
+            if (digitoVer1 % 11 == 10) {
+                digitoVer1 = 0;
+            } else {
+                digitoVer1 = digitoVer1 % 11;
+            }
+
+            for (int i = 0; i < cpf3.length(); i++) {
+                digitoVer2 += Integer.parseInt(String.valueOf(cpf3.charAt(i))) * (12 - (i + 1));
+            }
+            digitoVer2 = digitoVer2 * 10;
+
+            if (digitoVer2 % 11 == 10) {
+                digitoVer2 = 0;
+            } else {
+                digitoVer2 = digitoVer2 % 11;
+            }
+
+            return Integer.parseInt(String.valueOf(verifiers.charAt(0))) == digitoVer1
+                    && Integer.parseInt(String.valueOf(verifiers.charAt(1))) == digitoVer2;
         }
-
-        String verifiers2 = String.valueOf(digitoVer1) + String.valueOf(digitoVer2);
-
-        return Integer.parseInt(verifiers2) == verifiers;
     }
 }

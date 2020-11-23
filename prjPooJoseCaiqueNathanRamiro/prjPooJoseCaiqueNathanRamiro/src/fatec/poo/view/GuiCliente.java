@@ -4,12 +4,11 @@ import fatec.poo.model.Pessoa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
-
 public class GuiCliente extends javax.swing.JFrame {
 
-    public GuiCliente() {
+    public GuiCliente(ArrayList<Pessoa> c) {
         initComponents();
+        cadCli = c;
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,25 +273,43 @@ public class GuiCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-     this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-    if(Pessoa.validarCpf(txtFormatCpf.getText())){
-       JOptionPane.showMessageDialog(null, "!");
-    }else{
-        JOptionPane.showMessageDialog(null, "CPF Inválido!");
-    }
-    
-    }//GEN-LAST:event_btnConsultarActionPerformed
-public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuiCliente().setVisible(true);
+        if (Pessoa.validarCpf(txtFormatCpf.getText())) {
+            int cont;
+            for (cont = 0; cont < cadCli.size(); cont++) {
+                if (cadCli.get(cont) instanceof Pessoa) {
+                    if (((Pessoa) cadCli.get(cont)).getCpf().equals(txtFormatCpf.getText())) {
+                        break;
+                    }
+                }
             }
-        });
-    }
+
+            if (cont < cadCli.size()) {
+                indexCli = cont;
+            } else {
+                indexCli = -1;
+            }
+
+            if(indexCli >= 0){
+                
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "CPF Inválido!");
+        }
+
+    }//GEN-LAST:event_btnConsultarActionPerformed
+//public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GuiCliente().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
