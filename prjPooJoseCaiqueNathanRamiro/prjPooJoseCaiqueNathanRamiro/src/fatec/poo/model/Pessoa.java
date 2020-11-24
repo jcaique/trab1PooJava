@@ -20,6 +20,10 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
@@ -77,7 +81,7 @@ public class Pessoa {
         String cpfNoFormat = cpf.replace(".", "");
         cpfNoFormat = cpfNoFormat.replace("-", "");
 
-        System.out.println(cpfNoFormat);
+       
 
         String cpf2 = cpfNoFormat.substring(0, 9);//separando os 9 primeiros digitos - vai da pos 0 até a pos 9 do array, desconsiderando a pos 9
         String cpf3 = cpfNoFormat.substring(0, 10);//separando os 10 primeiros
@@ -101,7 +105,7 @@ public class Pessoa {
 
             for (int i = 0; i < cpf2.length(); i++) {
                 digitoVer1 += Integer.parseInt(String.valueOf(cpf2.charAt(i))) * (i + 1);
-                System.out.println(digitoVer1);
+               
             }
             if (digitoVer1 % 11 == 10) {
                 digitoVer1 = 0;

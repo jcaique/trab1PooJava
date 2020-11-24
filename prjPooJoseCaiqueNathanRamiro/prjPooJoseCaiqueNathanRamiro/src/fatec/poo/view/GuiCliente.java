@@ -1,14 +1,15 @@
 package fatec.poo.view;
 
+import fatec.poo.model.Cliente;
 import fatec.poo.model.Pessoa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GuiCliente extends javax.swing.JFrame {
 
-    public GuiCliente(ArrayList<Pessoa> c) {
+    public GuiCliente(ArrayList<Pessoa> cad) {
         initComponents();
-        cadCli = c;
+        cadCliVend = cad;
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -23,9 +24,7 @@ public class GuiCliente extends javax.swing.JFrame {
         lblCep = new javax.swing.JLabel();
         lblUf = new javax.swing.JLabel();
         txtFormatCpf = new javax.swing.JFormattedTextField();
-        txtFormatLimiteCred = new javax.swing.JFormattedTextField();
         txtFormatCep = new javax.swing.JFormattedTextField();
-        txtFormatLimiteDisp = new javax.swing.JFormattedTextField();
         txtEndereço = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         txtCidade = new javax.swing.JTextField();
@@ -37,6 +36,8 @@ public class GuiCliente extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        txtFormatLimiteCred = new javax.swing.JTextField();
+        txtFormatLimiteDisp = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -78,20 +79,12 @@ public class GuiCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        txtFormatLimiteCred.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-        txtFormatLimiteCred.setToolTipText("");
-        txtFormatLimiteCred.setEnabled(false);
-
         try {
             txtFormatCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtFormatCep.setEnabled(false);
-
-        txtFormatLimiteDisp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-        txtFormatLimiteDisp.setToolTipText("");
-        txtFormatLimiteDisp.setEnabled(false);
 
         txtEndereço.setEnabled(false);
 
@@ -122,18 +115,33 @@ public class GuiCliente extends javax.swing.JFrame {
         btnIncluir.setText("Incluir");
         btnIncluir.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 153)));
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 153)));
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 153)));
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
@@ -144,6 +152,10 @@ public class GuiCliente extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
+
+        txtFormatLimiteCred.setEnabled(false);
+
+        txtFormatLimiteDisp.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,14 +177,6 @@ public class GuiCliente extends javax.swing.JFrame {
                 .addContainerGap(121, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLimiteCred)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFormatLimiteCred, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLimiteDisp)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFormatLimiteDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblCidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEndereco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
@@ -183,13 +187,14 @@ public class GuiCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtEndereço)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtTelefoneDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtFormatCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtTelefone)
+                                        .addGap(105, 105, 105))
+                                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFormatCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblUf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,8 +203,17 @@ public class GuiCliente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtFormatCep)
                                     .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txtNome))))
-                .addGap(110, 110, 110))
+                            .addComponent(txtNome))
+                        .addGap(110, 110, 110))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLimiteCred)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFormatLimiteCred, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblLimiteDisp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFormatLimiteDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblLimiteCred, lblLimiteDisp});
@@ -209,8 +223,6 @@ public class GuiCliente extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCidade, lblCpf, lblEndereco, lblNome, lblTelefone});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFormatLimiteCred, txtFormatLimiteDisp});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,36 +292,163 @@ public class GuiCliente extends javax.swing.JFrame {
 
         if (Pessoa.validarCpf(txtFormatCpf.getText())) {
             int cont;
-            for (cont = 0; cont < cadCli.size(); cont++) {
-                if (cadCli.get(cont) instanceof Pessoa) {
-                    if (((Pessoa) cadCli.get(cont)).getCpf().equals(txtFormatCpf.getText())) {
+            for (cont = 0; cont < cadCliVend.size(); cont++) {
+                if (cadCliVend.get(cont) instanceof Cliente) {
+                    if (((Cliente) cadCliVend.get(cont)).getCpf().equals(txtFormatCpf.getText())) {
                         break;
                     }
                 }
             }
 
-            if (cont < cadCli.size()) {
+            if (cont < cadCliVend.size()) {
                 indexCli = cont;
             } else {
                 indexCli = -1;
             }
 
-            if(indexCli >= 0){
-                
+            if (indexCli >= 0) {
+                txtFormatCpf.setText(((Cliente) cadCliVend.get(indexCli)).getCpf());
+
+                txtNome.setText(((Cliente) cadCliVend.get(indexCli)).getNome());
+
+                txtEndereço.setText(((Cliente) cadCliVend.get(indexCli)).getEndereco());
+
+                txtCidade.setText(((Cliente) cadCliVend.get(indexCli)).getCidade());
+
+                txtTelefoneDDD.setText(((Cliente) cadCliVend.get(indexCli)).getDdd());
+
+                txtTelefone.setText(((Cliente) cadCliVend.get(indexCli)).getTelefone());
+
+                txtFormatCep.setText(((Cliente) cadCliVend.get(indexCli)).getCep());
+
+                cbxUf.setSelectedItem(((Cliente) cadCliVend.get(indexCli)).getUf());
+
+                txtFormatLimiteCred.setText(String.valueOf((((Cliente) cadCliVend.get(indexCli)).getLimiteCred())));
+
+                txtFormatLimiteDisp.setText(String.valueOf(((Cliente) cadCliVend.get(indexCli)).getLimiteDisp()));
+
+                btnConsultar.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+
+                txtFormatCpf.setEnabled(false);
+                txtEndereço.setEnabled(true);
+                txtFormatCep.setEnabled(true);
+                txtFormatLimiteCred.setEnabled(true);
+                txtFormatLimiteDisp.setEnabled(true);
+                txtNome.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtTelefoneDDD.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cbxUf.setEnabled(true);
+
+                txtNome.requestFocus();
+            } else {
+                btnConsultar.setEnabled(false);
+                btnIncluir.setEnabled(true);
+
+                txtFormatCpf.setEnabled(false);
+                txtEndereço.setEnabled(true);
+                txtFormatCep.setEnabled(true);
+                txtFormatLimiteCred.setEnabled(true);
+
+                txtNome.setEnabled(true);
+                txtTelefone.setEnabled(true);
+                txtTelefoneDDD.setEnabled(true);
+                txtCidade.setEnabled(true);
+                cbxUf.setEnabled(true);
             }
-            
         } else {
             JOptionPane.showMessageDialog(null, "CPF Inválido!");
+            txtFormatCpf.requestFocus();
         }
 
     }//GEN-LAST:event_btnConsultarActionPerformed
-//public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GuiCliente().setVisible(true);
-//            }
-//        });
-//    }
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        Cliente cli;
+        cli = new Cliente(
+                txtFormatCpf.getText(),
+                txtNome.getText(),
+                Double.parseDouble(String.valueOf(txtFormatLimiteCred.getText())));
+
+        cli.setCep(txtFormatCep.getText());
+        cli.setCidade(txtCidade.getText());
+        cli.setDdd(txtTelefoneDDD.getText());
+        cli.setTelefone(txtTelefone.getText());
+        cli.setEndereco(txtEndereço.getText());
+        cli.setUf(cbxUf.getSelectedItem().toString());
+
+        cadCliVend.add(cli);
+
+        txtCidade.setText(null);
+        txtEndereço.setText(null);
+        txtFormatCep.setText(null);
+        txtFormatCpf.setText(null);
+        txtFormatLimiteCred.setText(null);
+        txtFormatLimiteDisp.setText(null);
+        txtNome.setText(null);
+        txtTelefone.setText(null);
+        txtTelefoneDDD.setText(null);
+
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (indexCli >= 0) {
+            cadCliVend.remove(indexCli);
+            indexCli = -1;
+        }
+        txtCidade.setText(null);
+        txtEndereço.setText(null);
+        txtFormatCep.setText(null);
+        txtFormatCpf.setText(null);
+        txtFormatLimiteCred.setText(null);
+        txtFormatLimiteDisp.setText(null);
+        txtNome.setText(null);
+        txtTelefone.setText(null);
+        txtTelefoneDDD.setText(null);
+
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        txtFormatCpf.setEnabled(false);
+        cadCliVend.get(indexCli).setNome(txtNome.getText());
+        cadCliVend.get(indexCli).setCep(txtFormatCep.getText());
+        cadCliVend.get(indexCli).setCidade(txtCidade.getText());
+        cadCliVend.get(indexCli).setDdd(txtTelefoneDDD.getText());
+        cadCliVend.get(indexCli).setEndereco(txtEndereço.getText());
+        cadCliVend.get(indexCli).setTelefone(txtTelefone.getText());
+        cadCliVend.get(indexCli).setUf(cbxUf.getSelectedItem().toString());
+        ((Cliente)cadCliVend.get(indexCli)).setLimiteCred(Double.parseDouble(txtFormatLimiteCred.getText()));
+        
+        txtCidade.setText(null);
+        txtEndereço.setText(null);
+        txtFormatCep.setText(null);
+        txtFormatCpf.setText(null);
+        txtFormatLimiteCred.setText(null);
+        txtFormatLimiteDisp.setText(null);
+        txtNome.setText(null);
+        txtTelefone.setText(null);
+        txtTelefoneDDD.setText(null);
+
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -331,12 +470,12 @@ public class GuiCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtEndereço;
     private javax.swing.JFormattedTextField txtFormatCep;
     private javax.swing.JFormattedTextField txtFormatCpf;
-    private javax.swing.JFormattedTextField txtFormatLimiteCred;
-    private javax.swing.JFormattedTextField txtFormatLimiteDisp;
+    private javax.swing.JTextField txtFormatLimiteCred;
+    private javax.swing.JTextField txtFormatLimiteDisp;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTelefoneDDD;
     // End of variables declaration//GEN-END:variables
-    private ArrayList<Pessoa> cadCli;
+    private ArrayList<Pessoa> cadCliVend;
     private int indexCli;
 }
