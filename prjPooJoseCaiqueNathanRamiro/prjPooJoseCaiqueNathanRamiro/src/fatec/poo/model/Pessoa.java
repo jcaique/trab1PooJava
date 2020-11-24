@@ -116,12 +116,12 @@ public class Pessoa {
             for (int i = 0; i < cpf3.length(); i++) {
                 digitoVer2 += Integer.parseInt(String.valueOf(cpf3.charAt(i))) * (12 - (i + 1));
             }
-            digitoVer2 = digitoVer2 * 10;
+            digitoVer2 = digitoVer2 * 10;// da pra usar *=
 
             if (digitoVer2 % 11 == 10) {
                 digitoVer2 = 0;
             } else {
-                digitoVer2 = digitoVer2 % 11;
+                digitoVer2 = digitoVer2 % 11;// %= tambem existe
             }
 
             return Integer.parseInt(String.valueOf(verifiers.charAt(0))) == digitoVer1

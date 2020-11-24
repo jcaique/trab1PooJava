@@ -58,4 +58,9 @@ public class Produto {
     public void subQtdeEstoque(double qtde){
        this.qtdeEstoque -=  qtde;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+    
 }
