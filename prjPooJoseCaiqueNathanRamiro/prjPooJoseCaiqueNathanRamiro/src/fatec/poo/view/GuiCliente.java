@@ -7,9 +7,9 @@ import javax.swing.JOptionPane;
 
 public class GuiCliente extends javax.swing.JFrame {
 
-    public GuiCliente(ArrayList<Pessoa> cad) {
+    public GuiCliente(ArrayList<Pessoa> cadCli) {
         initComponents();
-        cadCliVend = cad;
+        cadCliVend = cadCli;
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -357,6 +357,8 @@ public class GuiCliente extends javax.swing.JFrame {
                 txtTelefoneDDD.setEnabled(true);
                 txtCidade.setEnabled(true);
                 cbxUf.setEnabled(true);
+
+                txtNome.requestFocus();
             }
         } else {
             JOptionPane.showMessageDialog(null, "CPF Inválido!");
@@ -397,6 +399,19 @@ public class GuiCliente extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
         txtFormatCpf.setEnabled(true);
 
+        txtCidade.setEnabled(false);
+        txtEndereço.setEnabled(false);
+        txtFormatCep.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+        txtFormatLimiteCred.setEnabled(false);
+        txtFormatLimiteDisp.setEnabled(false);
+        txtNome.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtTelefoneDDD.setEnabled(false);
+
+        txtFormatCpf.requestFocus();
+
+
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -419,6 +434,18 @@ public class GuiCliente extends javax.swing.JFrame {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         txtFormatCpf.setEnabled(true);
+
+        txtCidade.setEnabled(false);
+        txtEndereço.setEnabled(false);
+        txtFormatCep.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+        txtFormatLimiteCred.setEnabled(false);
+        txtFormatLimiteDisp.setEnabled(false);
+        txtNome.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtTelefoneDDD.setEnabled(false);
+
+        txtFormatCpf.requestFocus();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -430,8 +457,8 @@ public class GuiCliente extends javax.swing.JFrame {
         cadCliVend.get(indexCli).setEndereco(txtEndereço.getText());
         cadCliVend.get(indexCli).setTelefone(txtTelefone.getText());
         cadCliVend.get(indexCli).setUf(cbxUf.getSelectedItem().toString());
-        ((Cliente)cadCliVend.get(indexCli)).setLimiteCred(Double.parseDouble(txtFormatLimiteCred.getText()));
-        
+        ((Cliente) cadCliVend.get(indexCli)).setLimiteCred(Double.parseDouble(txtFormatLimiteCred.getText()));
+
         txtCidade.setText(null);
         txtEndereço.setText(null);
         txtFormatCep.setText(null);
@@ -447,6 +474,18 @@ public class GuiCliente extends javax.swing.JFrame {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         txtFormatCpf.setEnabled(true);
+
+        txtCidade.setEnabled(false);
+        txtEndereço.setEnabled(false);
+        txtFormatCep.setEnabled(false);
+        txtFormatCpf.setEnabled(true);
+        txtFormatLimiteCred.setEnabled(false);
+        txtFormatLimiteDisp.setEnabled(false);
+        txtNome.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtTelefoneDDD.setEnabled(false);
+
+        txtFormatCpf.requestFocus();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
 

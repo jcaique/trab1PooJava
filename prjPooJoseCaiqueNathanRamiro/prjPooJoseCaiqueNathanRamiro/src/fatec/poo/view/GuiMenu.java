@@ -114,7 +114,7 @@ public class GuiMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemMenuClientesActionPerformed
 
     private void itemMenuVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuVendedoresActionPerformed
-        new GuiVendedor().setVisible(true);
+        new GuiVendedor(cadCliVend).setVisible(true);
     }//GEN-LAST:event_itemMenuVendedoresActionPerformed
 
     private void itemMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosActionPerformed
