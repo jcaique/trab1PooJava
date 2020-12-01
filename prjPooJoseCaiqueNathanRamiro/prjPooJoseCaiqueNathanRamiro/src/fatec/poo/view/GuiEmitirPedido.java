@@ -1,14 +1,20 @@
 package fatec.poo.view;
 
 import fatec.poo.model.Pedido;
+import fatec.poo.model.Pessoa;
+import fatec.poo.model.Produto;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class GuiEmitirPedido extends javax.swing.JFrame {
 
-    public GuiEmitirPedido(ArrayList<Pedido> cadPedidos) {
+    public GuiEmitirPedido(ArrayList<Pedido> cadPedidos, ArrayList<Produto> cadProds,
+            ArrayList<Pessoa> cadCliVend
+    ) {
         initComponents();
         this.cadPedidos = cadPedidos;
+        this.cadProds = cadProds;
+        this.cadCliVend = cadCliVend;
         modTblProds = (DefaultTableModel) tblProds.getModel();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -472,7 +478,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             btnPesqPedido.setEnabled(false);
 
             for (int i = 0; i < ((Pedido) cadPedidos.get(cont)).getItensPedidos().size(); i++) {
-               
+
             }
 
             txtCodProd.setEnabled(true);
@@ -528,5 +534,9 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<Pedido> cadPedidos;
     private int indexPed;
+    private ArrayList<Produto> cadProds;
+    private int indexProd;
+    private ArrayList<Pessoa> cadCliVend;
+    private int indexCliVend;
     private DefaultTableModel modTblProds;
 }
