@@ -88,6 +88,11 @@ public class GuiMenu extends javax.swing.JFrame {
         barraMenu.add(menuCadastros);
 
         menuPedido.setText("Pedido");
+        menuPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPedidoActionPerformed(evt);
+            }
+        });
         barraMenu.add(menuPedido);
 
         setJMenuBar(barraMenu);
@@ -121,6 +126,10 @@ public class GuiMenu extends javax.swing.JFrame {
     private void itemMenuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosActionPerformed
         new GuiProduto(cadProd).setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosActionPerformed
+
+    private void menuPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPedidoActionPerformed
+      new GuiEmitirPedido(cadPedido).setVisible(true);
+    }//GEN-LAST:event_menuPedidoActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

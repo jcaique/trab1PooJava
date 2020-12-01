@@ -75,4 +75,18 @@ public class Pedido {
 //
 //        }
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public ArrayList<ItemPedido> getItensPedidos() {
+        return itensPedidos;
+    }
+    
+    
 }
