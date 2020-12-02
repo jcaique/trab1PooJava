@@ -21,6 +21,7 @@ public class GuiMenu extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         itemMenuSair = new javax.swing.JMenuItem();
         menuPedido = new javax.swing.JMenu();
+        itemMenuEmitirPedido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Vendas");
@@ -88,11 +89,15 @@ public class GuiMenu extends javax.swing.JFrame {
         barraMenu.add(menuCadastros);
 
         menuPedido.setText("Pedido");
-        menuPedido.addActionListener(new java.awt.event.ActionListener() {
+
+        itemMenuEmitirPedido.setText("Emitir Pedido");
+        itemMenuEmitirPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuPedidoActionPerformed(evt);
+                itemMenuEmitirPedidoActionPerformed(evt);
             }
         });
+        menuPedido.add(itemMenuEmitirPedido);
+
         barraMenu.add(menuPedido);
 
         setJMenuBar(barraMenu);
@@ -127,9 +132,9 @@ public class GuiMenu extends javax.swing.JFrame {
         new GuiProduto(cadProd).setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosActionPerformed
 
-    private void menuPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPedidoActionPerformed
+    private void itemMenuEmitirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuEmitirPedidoActionPerformed
       new GuiEmitirPedido(cadPedido,cadProd,cadCliVend).setVisible(true);
-    }//GEN-LAST:event_menuPedidoActionPerformed
+    }//GEN-LAST:event_itemMenuEmitirPedidoActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -141,6 +146,7 @@ public class GuiMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenuItem itemMenuClientes;
+    private javax.swing.JMenuItem itemMenuEmitirPedido;
     private javax.swing.JMenuItem itemMenuProdutos;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JMenuItem itemMenuVendedores;

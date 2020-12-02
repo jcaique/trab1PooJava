@@ -5,6 +5,7 @@ import fatec.poo.model.Pedido;
 import fatec.poo.model.Pessoa;
 import fatec.poo.model.Produto;
 import fatec.poo.model.Vendedor;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
-
 
 public class GuiEmitirPedido extends javax.swing.JFrame {
 
@@ -25,7 +25,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         this.cadProds = cadProds;
         this.cadCliVend = cadCliVend;
         modTblProds = (DefaultTableModel) tblProds.getModel();
-        
+
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,10 +70,9 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         btnIncluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Emitir Pedido");
         setBackground(new java.awt.Color(255, 255, 255));
-        setEnabled(false);
         setResizable(false);
 
         painelPedido.setBorder(javax.swing.BorderFactory.createTitledBorder("Pedido"));
@@ -125,7 +124,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             }
         });
 
-        txtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        try {
+            txtDataPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtDataPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDataPedido.setEnabled(false);
         txtDataPedido.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -432,6 +435,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnIncluir.setText("Incluir");
@@ -510,8 +518,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         //se index >=0 entao existe o pedido
         if (indexPed >= 0) {
-            btnPesqPedido.setEnabled(false);            
-            
+            btnPesqPedido.setEnabled(false);
+
             double precoTot = 0;
             double qtdeTot = 0;
 
@@ -519,24 +527,24 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
                 double preco = cadPedidos.get(indexPed).getItensPedidos().get(i).getProduto().getPreco();
                 double quantidade = cadPedidos.get(indexPed).getItensPedidos().get(i).getQtdeVendida();
-                
-                String linha[] ={cadPedidos.get(indexPed).getItensPedidos().get(i).getProduto().getCodigo(),
-                                 cadPedidos.get(indexPed).getItensPedidos().get(i).getProduto().getDescricao(),
-                                 df.format(preco),
-                                 String.valueOf(quantidade),
-                                 df.format(preco*quantidade)
-                                };               
-                
+
+                String linha[] = {cadPedidos.get(indexPed).getItensPedidos().get(i).getProduto().getCodigo(),
+                    cadPedidos.get(indexPed).getItensPedidos().get(i).getProduto().getDescricao(),
+                    df.format(preco),
+                    String.valueOf(quantidade),
+                    df.format(preco * quantidade)
+                };
+
                 modTblProds.addRow(linha);
-                
-                precoTot += preco*quantidade;
+
+                precoTot += preco * quantidade;
                 qtdeTot += quantidade;
-                
+
             }
 
             txtValorTotalPedido.setText(String.valueOf(precoTot));
             txtQtdItensPedidos.setText(String.valueOf(qtdeTot));
-            
+
             txtCodProd.setEnabled(true);
             btnRemoverItem.setEnabled(true);
             btnAlterar.setEnabled(true);
@@ -545,224 +553,212 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             btnPesqPedido.setEnabled(false);
             btnPesqCliente.setEnabled(true);// consulta do cliente
             txtDataPedido.setEnabled(true);
-            
-            
+
         }
     }//GEN-LAST:event_btnPesqPedidoActionPerformed
 
-    private void txtDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataPedidoFocusLost
-        //não testado       
-        
-        try {
-            
-            //String data[] = txtDataPedido.getText().split("/");
-            LocalDate hoje = LocalDate.now();
-            
-            if(hoje.isBefore(LocalDate.parse(txtDataPedido.getText().replace('/', '-')))){
-                
-                Exception ex = new Exception(); //exceção personalisada
-                throw ex;
-                
-            }
-            
-            Pedido ped = new Pedido(txtNumeroPedido.getText(),
-                                    txtDataPedido.getText());
-            
-            pedidoAtual = ped;
-            
-            txtDataPedido.setEnabled(false);
-            txtCpfCliente.setEnabled(true);
-            btnPesqCliente.setEnabled(true);
-            
-            
-        } catch (Exception e) { // como ele não procura uma exeção especifica, supostamente ele pega tanto a exeção customizada quanto a de erro de parse
-            JOptionPane.showMessageDialog(null, "Data invalida");
-            txtDataPedido.setEnabled(true);
-            txtDataPedido.requestFocus();
-            
-            //para testes !!
-            //
-            //!!!
-            
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            
-            //deletar depois dos testes
-            //
-            //!!!
-        }
-        
-    }//GEN-LAST:event_txtDataPedidoFocusLost
-
     private void btnPesqClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqClienteActionPerformed
         int cont;
-        
-        for(cont=0;cont <(cadCliVend.size());cont++){
-            if (cadCliVend.get(cont) instanceof Cliente){
-                if(((Cliente)cadCliVend.get(cont)).getCpf().equals(txtCpfCliente.getText())){
-                    
+
+        for (cont = 0; cont < (cadCliVend.size()); cont++) {
+            if (cadCliVend.get(cont) instanceof Cliente) {
+                if (((Cliente) cadCliVend.get(cont)).getCpf().equals(txtCpfCliente.getText())) {
+
                     break;
-                    
+
                 }
-                
+
             }
-            
+
         }
-        
-        if(cont<cadCliVend.size()){
-            
+
+        if (cont < cadCliVend.size()) {
+
             indexCliVend = cont;
-            
-        }            
-        else{
-            
+
+        } else {
+
             indexCliVend = -1;
-            
+
         }
-        
-        if(indexCliVend != -1){
-            ((Cliente)cadCliVend.get(indexCliVend)).addPedido(pedidoAtual);
-            txtNomeCliente.setText(((Cliente)cadCliVend.get(indexCliVend)).getNome());
-            
+
+        if (indexCliVend != -1) {
+            ((Cliente) cadCliVend.get(indexCliVend)).addPedido(pedidoAtual);
+            txtNomeCliente.setText(((Cliente) cadCliVend.get(indexCliVend)).getNome());
+
             txtDataPedido.setEnabled(false);
             txtCpfCliente.setEnabled(false);
             btnPesqCliente.setEnabled(false);
-            
+
             txtCpfVendedor.setEnabled(true);
             btnPesqVendedor.setEnabled(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "CPF não encontrado");
         }
-        
+
     }//GEN-LAST:event_btnPesqClienteActionPerformed
 
     private void btnPesqVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqVendedorActionPerformed
         int cont;
-        
-        for(cont=0;cont <(cadCliVend.size());cont++){
-            if (cadCliVend.get(cont) instanceof Vendedor){
-                if(((Vendedor)cadCliVend.get(cont)).getCpf().equals(txtCpfVendedor.getText())){
-                    
+
+        for (cont = 0; cont < (cadCliVend.size()); cont++) {
+            if (cadCliVend.get(cont) instanceof Vendedor) {
+                if (((Vendedor) cadCliVend.get(cont)).getCpf().equals(txtCpfVendedor.getText())) {
+
                     break;
-                    
+
                 }
-                
+
             }
-            
+
         }
-        
-        if(cont<cadCliVend.size()){
-            
+
+        if (cont < cadCliVend.size()) {
+
             indexCliVend = cont;
-            
-        }            
-        else{
-            
+
+        } else {
+
             indexCliVend = -1;
-            
+
         }
-        
-        if(indexCliVend != -1){
-            ((Vendedor)cadCliVend.get(indexCliVend)).setPedido(pedidoAtual);
-            txtNomeVendedor.setText(((Vendedor)cadCliVend.get(indexCliVend)).getNome());
-            
+
+        if (indexCliVend != -1) {
+            ((Vendedor) cadCliVend.get(indexCliVend)).setPedido(pedidoAtual);
+            txtNomeVendedor.setText(((Vendedor) cadCliVend.get(indexCliVend)).getNome());
+
             txtCpfVendedor.setEnabled(false);
             btnPesqVendedor.setEnabled(false);
-            
+
             txtCodProd.setEnabled(true);
-            btnPesqProd.setEnabled(true);            
-            
-        }
-        else{
+            btnPesqProd.setEnabled(true);
+
+        } else {
             JOptionPane.showMessageDialog(null, "CPF não encontrado");
         }
     }//GEN-LAST:event_btnPesqVendedorActionPerformed
 
     private void btnPesqProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqProdActionPerformed
         int cont;
-        
-        for(cont=0;cont <(cadProds.size());cont++){
-            if (cadProds.get(cont) instanceof Produto){
-                if(((Produto)cadProds.get(cont)).getCodigo().equals(txtCodProd.getText())){
-                    
+
+        for (cont = 0; cont < (cadProds.size()); cont++) {
+            if (cadProds.get(cont) instanceof Produto) {
+                if (((Produto) cadProds.get(cont)).getCodigo().equals(txtCodProd.getText())) {
+
                     break;
-                    
+
                 }
-                
+
             }
-            
+
         }
-        
-        if(cont<cadProds.size()){
-            
+
+        if (cont < cadProds.size()) {
+
             indexProd = cont;
-            
-        }            
-        else{
-            
+
+        } else {
+
             indexProd = -1;
-            
+
         }
-        
-        if(indexProd != -1){     
-            txtDescProd.setText(((Produto)cadProds.get(indexProd)).getDescricao());
-            
+
+        if (indexProd != -1) {
+            txtDescProd.setText(((Produto) cadProds.get(indexProd)).getDescricao());
+
             btnAddItem.setEnabled(true);
-            btnRemoverItem.setEnabled(true);           
-            
-        }
-        else{
+            btnRemoverItem.setEnabled(true);
+
+        } else {
             JOptionPane.showMessageDialog(null, "Produto não encontrado");
         }
     }//GEN-LAST:event_btnPesqProdActionPerformed
 
     private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
         try {
-            
+
             // Verifica se a qtde pedida é zero ou esta disponivel
-            if(Double.parseDouble(txtQtdVendida.getText()) > cadProds.get(indexProd).getQtdeEstoque() 
-                    || Double.parseDouble(txtQtdVendida.getText()) <= 0){
-                
+            if (Double.parseDouble(txtQtdVendida.getText()) > cadProds.get(indexProd).getQtdeEstoque()
+                    || Double.parseDouble(txtQtdVendida.getText()) <= 0) {
+
                 Exception ex = new Exception();
                 throw ex;
-                
+
             }
-            
-            
-            
+
         } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(null, 
-                                          "Quantidade invalida este produto tem estoque maximo de " 
-                                          + String.valueOf(cadProds.get(indexProd).getQtdeEstoque()) + " e deve ser incluido ao minimo uma unidade");
-            
+
+            JOptionPane.showMessageDialog(null,
+                    "Quantidade invalida este produto tem estoque maximo de "
+                    + String.valueOf(cadProds.get(indexProd).getQtdeEstoque()) + " e deve ser incluido ao minimo uma unidade");
+
         }
-        
+
         double preco = 0;
-        preco +=Double.parseDouble(txtValorTotalPedido.getText());
-        
+        preco += Double.parseDouble(txtValorTotalPedido.getText());
+
         try {
-            
-            preco = Double.parseDouble(txtQtdVendida.getText())*cadProds.get(indexProd).getPreco();
-            
-            
-            for(int cont =0;cont<cadCliVend.size();cont++){
-                if(((Cliente)cadCliVend.get(cont)).getLimiteDisp()< preco){
-                    
+
+            preco = Double.parseDouble(txtQtdVendida.getText()) * cadProds.get(indexProd).getPreco();
+
+            for (int cont = 0; cont < cadCliVend.size(); cont++) {
+                if (((Cliente) cadCliVend.get(cont)).getLimiteDisp() < preco) {
+
                     Exception ex = new Exception();
                     throw ex;
-                    
+
                 }
-                
-                
+
             }
-            
+
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, "este cliente Nao possui saldo suficiente para a inclusão desse produto");
-            
+
         }
     }//GEN-LAST:event_btnAddItemActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void txtDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataPedidoFocusLost
+        try {
+
+            //String data[] = txtDataPedido.getText().split("/");
+            LocalDate hoje = LocalDate.now();
+
+            if (hoje.isBefore(LocalDate.parse(txtDataPedido.getText().replace('/', '-')))) {
+
+                Exception ex = new Exception(); //exceção personalisada
+                throw ex;
+
+            }
+
+            Pedido ped = new Pedido(txtNumeroPedido.getText(),
+                    txtDataPedido.getText());
+
+            pedidoAtual = ped;
+
+            txtDataPedido.setEnabled(false);
+            txtCpfCliente.setEnabled(true);
+            btnPesqCliente.setEnabled(true);
+
+        } catch (Exception e) { // como ele não procura uma exeção especifica, supostamente ele pega tanto a exeção customizada quanto a de erro de parse
+            JOptionPane.showMessageDialog(null, "Data invalida");
+            txtDataPedido.setEnabled(true);
+            txtDataPedido.requestFocus();
+
+            //para testes !!
+            //
+            //!!!
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+            //deletar depois dos testes
+            //
+            //!!!
+        }
+    }//GEN-LAST:event_txtDataPedidoFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddItem;

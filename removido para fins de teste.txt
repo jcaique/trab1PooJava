@@ -1,0 +1,61 @@
+private void txtDataPedidoFocusLost(java.awt.event.FocusEvent evt) {                                        
+        try {
+
+            //String data[] = txtDataPedido.getText().split("/");
+            LocalDate hoje = LocalDate.now();
+
+            if (hoje.isBefore(LocalDate.parse(txtDataPedido.getText().replace('/', '-')))) {
+
+                Exception ex = new Exception(); //exceção personalisada
+                throw ex;
+
+            }
+
+            Pedido ped = new Pedido(txtNumeroPedido.getText(),
+                    txtDataPedido.getText());
+
+            pedidoAtual = ped;
+
+            txtDataPedido.setEnabled(false);
+            txtCpfCliente.setEnabled(true);
+            btnPesqCliente.setEnabled(true);
+
+        } catch (Exception e) { // como ele não procura uma exeção especifica, supostamente ele pega tanto a exeção customizada quanto a de erro de parse
+            JOptionPane.showMessageDialog(null, "Data invalida");
+            txtDataPedido.setEnabled(true);
+            txtDataPedido.requestFocus();
+
+            //para testes !!
+            //
+            //!!!
+            JOptionPane.showMessageDialog(null, e.getMessage());
+
+            //deletar depois dos testes
+            //
+            //!!!
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  private void txtDataPedidoKeyPressed(java.awt.event.KeyEvent evt) {                                         
+
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+
+        }
+    }
