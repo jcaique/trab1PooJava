@@ -65,15 +65,7 @@ public class Pedido {
 //        if (this.cliente.getLimiteDisp() >= itemPedido.getProduto().getPreco() * itemPedido.getQtdeVendida()) {
         this.itensPedidos.add(itemPedido);
         itemPedido.setPedido(this);
-        this.cliente.subLimite(itemPedido.getProduto().getPreco() * itemPedido.getQtdeVendida()); //descontando o preco do produto do ;
-
-//        } else {
-//
-//            System.out.println("");
-//            System.out.println("Saldo insuficiente");
-//            System.out.println("");
-//
-//        }
+        this.cliente.subLimite(itemPedido.getProduto().getPreco() * itemPedido.getQtdeVendida());
     }
 
     public Cliente getCliente() {

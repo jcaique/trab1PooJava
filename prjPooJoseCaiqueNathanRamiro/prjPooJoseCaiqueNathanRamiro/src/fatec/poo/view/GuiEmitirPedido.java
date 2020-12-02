@@ -1,6 +1,7 @@
 package fatec.poo.view;
 
 import fatec.poo.model.Cliente;
+import fatec.poo.model.ItemPedido;
 import fatec.poo.model.Pedido;
 import fatec.poo.model.Pessoa;
 import fatec.poo.model.Produto;
@@ -8,6 +9,8 @@ import fatec.poo.model.Vendedor;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
@@ -666,6 +669,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         if (indexProd != -1) {
             txtDescProd.setText(((Produto) cadProds.get(indexProd)).getDescricao());
 
+            txtQtdVendida.setEnabled(true);
             btnAddItem.setEnabled(true);
             btnRemoverItem.setEnabled(true);
 
@@ -694,26 +698,60 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         }
 
-        double preco = 0;
-        preco += Double.parseDouble(txtValorTotalPedido.getText());
+        ItemPedidoAtual = new ItemPedido(
+                Integer.parseInt(txtNumeroPedido.getText()),
+                Double.parseDouble(txtQtdVendida.getText()),
+                cadProds.get(indexProd));
 
         try {
 
-            preco = Double.parseDouble(txtQtdVendida.getText()) * cadProds.get(indexProd).getPreco();
+            double preco = 0.0;
 
-            for (int cont = 0; cont < cadCliVend.size(); cont++) {
-                if (((Cliente) cadCliVend.get(cont)).getLimiteDisp() < preco) {
-
-                    Exception ex = new Exception();
-                    throw ex;
-
+            int cont;
+            for (cont = 0; cont < cadCliVend.size(); cont++) {
+                if (cadCliVend.get(cont) instanceof Cliente) {
+                    if (((Cliente) cadCliVend.get(cont)).getCpf().equals(txtCpfCliente.getText())) {
+                        break;
+                    }
                 }
-
             }
+
+            //****
+            if (ItemPedidoAtual.getProduto().getPreco() > ((Cliente) cadCliVend.get(cont)).getLimiteDisp()) {
+                preco = Double.parseDouble(txtQtdVendida.getText()) * cadProds.get(indexProd).getPreco();
+            }
+
+            if (((Cliente) cadCliVend.get(cont)).getLimiteDisp() < preco) {
+                Exception ex = new Exception();
+                throw ex;
+            }
+            //****
+
+            pedidoAtual.setItemPedido(ItemPedidoAtual);
+
+            String linha[] = {
+                txtCodProd.getText(),
+                txtDescProd.getText(),
+                String.valueOf(((Produto) cadProds.get(indexProd)).getPreco()),
+                txtQtdVendida.getText(),
+                String.valueOf(((Produto) cadProds.get(indexProd)).getPreco()
+                * Double.parseDouble(txtQtdVendida.getText()))
+            };
+
+            modTblProds.addRow(linha);
+
+            double subTotalPedido = 0;
+            for (int i = 0; i < modTblProds.getRowCount(); i++) {
+                subTotalPedido += Double.parseDouble(String.valueOf(modTblProds.getValueAt(1, 4)));
+            }
+
+            txtValorTotalPedido.setText("R$ " + df.format(subTotalPedido));
+
+            txtQtdItensPedidos.setText(String.valueOf(modTblProds.getRowCount()));
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "este cliente Nao possui saldo suficiente para a inclusão desse produto");
+            JOptionPane.showMessageDialog(null, "Este cliente Nao possui saldo suficiente para a inclusão desse produto");
 
         }
     }//GEN-LAST:event_btnAddItemActionPerformed
@@ -723,18 +761,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void txtDataPedidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataPedidoFocusLost
-        try {
 
-            //String data[] = txtDataPedido.getText().split("/");
-            LocalDate hoje = LocalDate.now();
-
-            if (hoje.isBefore(LocalDate.parse(txtDataPedido.getText().replace('/', '-')))) {
-
-                Exception ex = new Exception(); //exceção personalisada
-                throw ex;
-
-            }
-
+        if (validarData(txtDataPedido.getText())) {
             Pedido ped = new Pedido(txtNumeroPedido.getText(),
                     txtDataPedido.getText());
 
@@ -743,23 +771,27 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
             txtDataPedido.setEnabled(false);
             txtCpfCliente.setEnabled(true);
             btnPesqCliente.setEnabled(true);
-
-        } catch (Exception e) { // como ele não procura uma exeção especifica, supostamente ele pega tanto a exeção customizada quanto a de erro de parse
+        } else {
             JOptionPane.showMessageDialog(null, "Data invalida");
             txtDataPedido.setEnabled(true);
             txtDataPedido.requestFocus();
-
-            //para testes !!
-            //
-            //!!!
-            JOptionPane.showMessageDialog(null, e.getMessage());
-
-            //deletar depois dos testes
-            //
-            //!!!
         }
     }//GEN-LAST:event_txtDataPedidoFocusLost
 
+    private static boolean validarData(String data) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            sdf.setLenient(false);
+
+            sdf.parse(data);
+
+            return true;
+        } catch (ParseException ex) {
+
+        }
+        return false;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddItem;
     private javax.swing.JButton btnAlterar;
@@ -803,12 +835,19 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<Pedido> cadPedidos;
     private int indexPed;
+
     private ArrayList<Produto> cadProds;
     private int indexProd;
+
     private ArrayList<Pessoa> cadCliVend;
     private int indexCliVend;
+
     private DefaultTableModel modTblProds;
+
     private Pedido pedidoAtual;
+
+    private ItemPedido ItemPedidoAtual;
+
     DecimalFormat df = new DecimalFormat("###0,00");
     //DateTimeFormatter dtf = DateTimeFormatter.ofPattern('dd/mm/yyyy');
 }
