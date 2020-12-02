@@ -715,12 +715,16 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                     }
                 }
             }
+            
+            indexCliVend = cont;
 
             //****
-            if (ItemPedidoAtual.getProduto().getPreco() > ((Cliente) cadCliVend.get(cont)).getLimiteDisp()) {
-                preco = Double.parseDouble(txtQtdVendida.getText()) * cadProds.get(indexProd).getPreco();
-            }
+            //if (ItemPedidoAtual.getProduto().getPreco() > ((Cliente) cadCliVend.get(cont)).getLimiteDisp()) {
+                
+            //}
 
+            preco = Double.parseDouble(txtQtdVendida.getText()) * ItemPedidoAtual.getProduto().getPreco();
+            
             if (((Cliente) cadCliVend.get(cont)).getLimiteDisp() < preco) {
                 Exception ex = new Exception();
                 throw ex;
